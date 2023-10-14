@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
@@ -12,14 +12,14 @@ const LoginScreen = () => {
   const handleLogin = () => {
     if (text == '') {
       Snackbar.show({
-        text: 'Plz Enter Email Address',
+        text: 'Enter email address',
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor: 'black',
         textColor: 'white',
       });
     } else if (pw == '') {
       Snackbar.show({
-        text: 'Plz Enter Password',
+        text: 'Enter password',
         duration: Snackbar.LENGTH_SHORT,
         margin: 20,
         backgroundColor: 'black',
@@ -29,7 +29,7 @@ const LoginScreen = () => {
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text) == false
     ) {
       Snackbar.show({
-        text: 'Plz Enter Valid Email',
+        text: 'Enter valid email address.',
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor: 'black',
         textColor: 'white',
@@ -38,7 +38,7 @@ const LoginScreen = () => {
       /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(pw) == false
     ) {
       Snackbar.show({
-        text: 'Plz valid password',
+        text: 'Password must be a complex one',
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor: 'black',
         textColor: 'white',
@@ -48,7 +48,12 @@ const LoginScreen = () => {
       auth()
         .createUserWithEmailAndPassword(text.toLowerCase(), pw)
         .then(res => {
-          console.log(res.user.uid);
+          Snackbar.show({
+            text: 'User submitted : ' + res.user.uid,
+            duration: Snackbar.LENGTH_SHORT,
+            backgroundColor: 'black',
+            textColor: 'white',
+          });
         })
         .catch(err => {
           if (err.code == 'auth/email-already-in-use') {
@@ -91,10 +96,7 @@ const LoginScreen = () => {
           }
           outlineColor="black"
         />
-        <Button
-          mode="contained"
-          style={styles.button}
-          onPress={handleLogin}>
+        <Button mode="contained" style={styles.button} onPress={handleLogin}>
           Submit
         </Button>
       </View>
@@ -105,7 +107,7 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: 'lightblack',
+    backgroundColor: 'lightblue',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -117,7 +119,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical:20
   },
   button: {
     marginTop: 20,

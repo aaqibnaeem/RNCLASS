@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 import FlatListPractice from './screens/FlatListPractice';
-import LoginPractice from './screens/LoginPractice';
+// import LoginPractice from './screens/LoginPractice';
 import SwiperPractice from './screens/SwiperPractice';
 import {PaperProvider} from 'react-native-paper';
 import LoginScreen from './screens/LoginScreen';
@@ -14,9 +14,14 @@ const App = () => {
       <SafeAreaView style={{flex: 1}}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Login"
               component={LoginPractice}
+              options={{headerShown: false}}
+            /> */}
+            <Stack.Screen
+              name="LoginScreen"
+              component={LoginScreen}
               options={{headerShown: false}}
             />
             <Stack.Screen
@@ -27,11 +32,6 @@ const App = () => {
             <Stack.Screen
               name="Swiper"
               component={SwiperPractice}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="LoginScreen"
-              component={LoginScreen}
               options={{headerShown: false}}
             />
           </Stack.Navigator>
