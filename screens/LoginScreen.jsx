@@ -20,7 +20,7 @@ const LoginScreen = () => {
     try {
       await GoogleSignin.hasPlayServices()
       GoogleSignin.configure({
-        webClientId: "786446331979-o7fe7l4fjp38qkcmk5g2gr89erv4v85o.apps.googleusercontent.com",
+        webClientId: "786446331979-dr9fetefgrrktpdpdegtgj9v6rsble9a.apps.googleusercontent.com",
         offlineAccess: true,
         hostedDomain: "",
         forceCodeForRefreshToken: true,
@@ -38,6 +38,16 @@ const LoginScreen = () => {
       console.log(error)
     }
   }
+
+  const signOut = async () => {
+    try {
+      await GoogleSignin.signOut();
+      console.log('Done')
+      // setState({ user: null }); // Remember to remove the user from your app's state as well
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   {/*
     keytool -genkeypair -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
@@ -136,6 +146,9 @@ const LoginScreen = () => {
         </Button>
         <Button mode="contained" style={styles.button} onPress={signInWithGoogle}>
           Google Signin
+        </Button>
+        <Button mode="contained" style={styles.button} onPress={signOut}>
+          Google SignOut
         </Button>
       </View>
     </View>
