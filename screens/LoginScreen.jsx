@@ -9,7 +9,7 @@ const LoginScreen = () => {
   const [pw, setPw] = React.useState('');
   const [showPw, togglePw] = React.useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (text == '') {
       Snackbar.show({
         text: 'Enter email address',
@@ -45,7 +45,7 @@ const LoginScreen = () => {
       });
     } else {
       console.log(text);
-      auth()
+      await auth()
         .createUserWithEmailAndPassword(text.toLowerCase(), pw)
         .then(res => {
           Snackbar.show({
