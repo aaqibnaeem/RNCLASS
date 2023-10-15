@@ -89,12 +89,7 @@ const LoginScreen = () => {
         textColor: 'white',
       });
     } else {
-<<<<<<< Updated upstream
-      console.log(text);
-      await auth()
-=======
       auth()
->>>>>>> Stashed changes
         .createUserWithEmailAndPassword(text.toLowerCase(), pw)
         .then(res => {
           Snackbar.show({
