@@ -1,58 +1,57 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import {View, Text, StyleSheet, Alert} from 'react-native';
+import {TextInput, Button} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import Snackbar from 'react-native-snackbar';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [text, setText] = React.useState('');
   const [pw, setPw] = React.useState('');
   const [showPw, togglePw] = React.useState(false);
 
+  React.useEffect(() => {
+    if (auth().currentUser !== null) {
+      navigation.replace('MainScreen');
+    }
+  }, []);
+
   async function signInWithGoogle() {
     gSignIn().then(data => {
       console.log('user data=>', data);
+      navigation.replace('MainScreen');
     });
   }
 
   const gSignIn = async () => {
     try {
-      await GoogleSignin.hasPlayServices()
+      await GoogleSignin.hasPlayServices();
       GoogleSignin.configure({
-        webClientId: "786446331979-dr9fetefgrrktpdpdegtgj9v6rsble9a.apps.googleusercontent.com",
+        webClientId:
+          '786446331979-dr9fetefgrrktpdpdegtgj9v6rsble9a.apps.googleusercontent.com',
         offlineAccess: true,
-        hostedDomain: "",
+        hostedDomain: '',
         forceCodeForRefreshToken: true,
-        accountName: ""
-      })
+        accountName: '',
+      });
 
-      const userInfo = await GoogleSignin.signIn()
-      const { idToken } = await GoogleSignin.signIn()
+      const userInfo = await GoogleSignin.signIn();
+      const {idToken} = await GoogleSignin.signIn();
 
       const googleCredentials = auth.GoogleAuthProvider.credential(idToken);
       await auth().signInWithCredential(googleCredentials);
       return userInfo;
-
     } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const signOut = async () => {
-    try {
-      await GoogleSignin.signOut();
-      console.log('Done')
-      // setState({ user: null }); // Remember to remove the user from your app's state as well
-    } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
-  {/*
+  {
+    /*
     keytool -genkeypair -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
     keytool -list -v -keystore "C:\Program Files\Microsoft\jdk-11.0.20.8-hotspot\bin\debug.keystore" -alias androiddebugkey -storepass android -keypass android
-  */}
+  */
+  }
 
   const handleLogin = async () => {
     if (text == '') {
@@ -98,10 +97,12 @@ const LoginScreen = () => {
             backgroundColor: 'black',
             textColor: 'white',
           });
+          navigation.replace('MainScreen');
         })
         .catch(err => {
           if (err.code == 'auth/email-already-in-use') {
             Alert.alert('Email ALready regsiter');
+            navigation.replace('MainScreen');
           }
         });
     }
@@ -143,11 +144,11 @@ const LoginScreen = () => {
         <Button mode="contained" style={styles.button} onPress={handleLogin}>
           Submit
         </Button>
-        <Button mode="contained" style={styles.button} onPress={signInWithGoogle}>
+        <Button
+          mode="contained"
+          style={styles.button}
+          onPress={signInWithGoogle}>
           Google Signin
-        </Button>
-        <Button mode="contained" style={styles.button} onPress={signOut}>
-          Google SignOut
         </Button>
       </View>
     </View>
@@ -170,14 +171,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     paddingHorizontal: 10,
-    paddingVertical: 20
+    paddingVertical: 20,
   },
   button: {
     marginTop: 20,
     width: '100%',
     backgroundColor: 'black',
   },
-  input: { width: '100%', marginBottom: 10 },
+  input: {width: '100%', marginBottom: 10},
 });
 
 export default LoginScreen;
