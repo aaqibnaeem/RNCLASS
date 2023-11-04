@@ -4,10 +4,8 @@ import {TextInput, Button} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import Snackbar from 'react-native-snackbar';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {createWorkletRuntime} from 'react-native-reanimated';
 
 const LoginScreen = ({navigation}) => {
-  const runtime = createWorkletRuntime('background');
   const [text, setText] = React.useState('');
   const [pw, setPw] = React.useState('');
   const [showPw, togglePw] = React.useState(false);
@@ -117,6 +115,7 @@ const LoginScreen = ({navigation}) => {
             fontSize: 24,
             fontWeight: 'bold',
             color: 'black',
+            fontFamily:"poppins"
           }}>
           Login / Signup
         </Text>

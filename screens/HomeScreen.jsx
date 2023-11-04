@@ -46,6 +46,7 @@ const HomeSceen = ({navigation}) => {
         <Button
           onPress={signOut}
           mode="contained"
+          fontFamily="Poppins"
           buttonColor="black"
           // style={{alignSelf: 'center', marginTop: '100%'}}
           >
@@ -68,6 +69,7 @@ const Styles = StyleSheet.create({
   },
   heading:{
     fontSize:18,
+    fontFamily:"Poppins-Regular",
     fontWeight:"bold"
   }
 });
