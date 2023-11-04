@@ -1,12 +1,12 @@
+import React, {useEffect} from 'react';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import React from 'react';
 import {View, Text, Alert, StyleSheet} from 'react-native';
 import {Avatar, Button} from 'react-native-paper';
 
-const MainScreen = ({navigation}: any) => {
+const HomeSceen = ({navigation}) => {
   let photo = auth().currentUser?.photoURL || 'asd';
-  React.useEffect(() => {
+  useEffect(() => {
     GoogleSignin.configure({
       webClientId:
         '786446331979-dr9fetefgrrktpdpdegtgj9v6rsble9a.apps.googleusercontent.com',
@@ -31,10 +31,10 @@ const MainScreen = ({navigation}: any) => {
     }
   };
   return (
-    <View>
+    <View style={{flex: 1}}>
       <View style={Styles.header}>
-        <Text>Main Screen</Text>
-        <Avatar.Image
+        <Text style={Styles.heading}>Main Screen</Text>
+        {/* <Avatar.Image
           size={50}
           style={{
             backgroundColor: 'none',
@@ -42,27 +42,34 @@ const MainScreen = ({navigation}: any) => {
           source={{
             uri: 'https://lh3.googleusercontent.com/a/ACg8ocI9uDlAJb7c9Sb1w3I0kWljbwQVosxDAqq-t7cSr1unRWA=s96-c',
           }}
-        />
+        /> */}
+        <Button
+          onPress={signOut}
+          mode="contained"
+          buttonColor="black"
+          // style={{alignSelf: 'center', marginTop: '100%'}}
+          >
+          Sign Out
+        </Button>
       </View>
-      <Button
-        onPress={signOut}
-        mode="contained"
-        buttonColor="black"
-        style={{alignSelf: 'center', marginTop: '100%'}}>
-        Sign Out
-      </Button>
     </View>
   );
 };
 
 const Styles = StyleSheet.create({
   header: {
+    height: 60,
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
+    justifyContent: 'space-between',
+    paddingHorizontal:10
   },
+  heading:{
+    fontSize:18,
+    fontWeight:"bold"
+  }
 });
 
-export default MainScreen;
+export default HomeSceen;

@@ -101,7 +101,7 @@ const LoginScreen = ({navigation}) => {
         })
         .catch(err => {
           if (err.code == 'auth/email-already-in-use') {
-            Alert.alert('Email ALready regsiter');
+            // Alert.alert('Email Already regsitered');
             navigation.replace('MainScreen');
           }
         });

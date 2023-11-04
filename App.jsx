@@ -9,12 +9,18 @@ import SwiperPractice from './screens/SwiperPractice';
 import {PaperProvider} from 'react-native-paper';
 import LoginScreen from './screens/LoginScreen';
 import MainScreen from './screens/MainScreen';
+import Splash from './screens/Splash';
 const App = () => {
   return (
     <PaperProvider>
       <SafeAreaView style={{flex: 1}}>
         <NavigationContainer>
           <Stack.Navigator>
+            <Stack.Screen
+              name="Splash"
+              component={Splash}
+              options={{headerShown: false}}
+            />
             <Stack.Screen
               name="LoginScreen"
               component={LoginScreen}
