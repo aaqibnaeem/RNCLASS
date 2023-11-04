@@ -10,6 +10,9 @@ import {PaperProvider} from 'react-native-paper';
 import LoginScreen from './screens/LoginScreen';
 import MainScreen from './screens/MainScreen';
 import Splash from './screens/Splash';
+import {createWorkletRuntime} from 'react-native-reanimated';
+createWorkletRuntime('background');
+
 const App = () => {
   return (
     <PaperProvider>
