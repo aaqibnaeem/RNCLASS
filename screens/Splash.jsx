@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import {Image} from 'react-native';
-import {Text} from 'react-native';
-import {View} from 'react-native';
+import {Image, View} from 'react-native';
+import {useTheme} from 'react-native-paper';
 
 const Splash = ({navigation}) => {
+  const theme = useTheme();
   useEffect(() => {
     setTimeout(() => {
       navigation.replace('LoginScreen');
@@ -15,7 +15,7 @@ const Splash = ({navigation}) => {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'lightblue',
+        backgroundColor: theme.colors.primary,
       }}>
       <Image
         source={require('../assets/images/A.png')}

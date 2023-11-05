@@ -1,19 +1,31 @@
 import React from 'react';
-import {SafeAreaView, Font} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
-// import FlatListPractice from './screens/FlatListPractice';
-// import LoginPractice from './screens/LoginPractice';
-// import SwiperPractice from './screens/SwiperPractice';
-import {PaperProvider} from 'react-native-paper';
+import {PaperProvider, DefaultTheme} from 'react-native-paper';
 import LoginScreen from './screens/LoginScreen';
 import MainScreen from './screens/MainScreen';
 import Splash from './screens/Splash';
 
 const App = () => {
+  const customTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: '#0460D9',
+      primaryLight: '#0476D9',
+      accent: '#0476D9',
+      background: '#F2F2F2',
+      secondary: '#1E3E59',
+      surface: '#FFFFFF',
+      text: '#333333',
+      disabled: '#BFBFBF',
+    },
+    roundness: 8,
+  };
   return (
-    <PaperProvider>
+    <PaperProvider theme={customTheme}>
       <SafeAreaView style={{flex: 1}}>
         <NavigationContainer>
           <Stack.Navigator>
