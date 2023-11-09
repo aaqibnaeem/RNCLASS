@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet, Image, ImageBackground} from 'react-native';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
+import {auth} from '@react-native-firebase/auth';
 
 import {
   useTheme,
@@ -15,6 +16,7 @@ import {
   Switch,
 } from 'react-native-paper';
 import {transparent} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 var Sidebar = [
   {
@@ -44,17 +46,29 @@ var Sidebar = [
   },
 ];
 function DrawerContent(props) {
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:
+        '786446331979-dr9fetefgrrktpdpdegtgj9v6rsble9a.apps.googleusercontent.com',
+      offlineAccess: true,
+      hostedDomain: '',
+      forceCodeForRefreshToken: true,
+      accountName: '',
+    });
+  }, []);
+  console.log('->', auth);
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
         <View>
           {/* header */}
           <View>
-            <ImageBackground
-              source={{
-                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmu9qZHSRiMOqjbLmZidt10ailLsX9wNTLpe1erMyUs24TZT3y7Bd8J3NVVuga8mMEW5g&usqp=CAU',
-              }}
-              style={{width: '100%', height: 180, marginTop: '-2%'}}>
+            <View
+            // source={{
+            //   uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmu9qZHSRiMOqjbLmZidt10ailLsX9wNTLpe1erMyUs24TZT3y7Bd8J3NVVuga8mMEW5g&usqp=CAU',
+            // }}
+            // style={{width: '100%', height: 180, marginTop: '-2%'}}
+            >
               <Avatar.Image
                 size={80}
                 color="white"
@@ -83,7 +97,7 @@ function DrawerContent(props) {
                   </View>
                 </View>
               </View>
-            </ImageBackground>
+            </View>
           </View>
 
           <Drawer.Section style={styles.drawerSection}>
@@ -104,7 +118,7 @@ function DrawerContent(props) {
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
         <View>
-          <Text style={{textAlign:"center"}}>Designed by Aqib</Text>
+          <Text style={{textAlign: 'center'}}>Designed by Aqib</Text>
         </View>
       </Drawer.Section>
     </View>

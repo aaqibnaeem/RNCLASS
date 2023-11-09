@@ -15,7 +15,7 @@ const Splash = ({navigation}) => {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.background,
       }}>
       <Image
         source={require('../assets/images/A.png')}

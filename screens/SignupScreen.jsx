@@ -6,7 +6,7 @@ import Snackbar from 'react-native-snackbar';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {InputField, PrimaryButton} from '../components';
 
-const LoginScreen = ({navigation}) => {
+const SignupScreen = ({navigation}) => {
   const [text, setText] = React.useState('');
   const [pw, setPw] = React.useState('');
   const [showPw, togglePw] = React.useState(false);
@@ -97,20 +97,40 @@ const LoginScreen = ({navigation}) => {
         backgroundColor: theme.colors.primary,
         textColor: 'white',
       });
+    } else if (
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text) == false
+    ) {
+      Snackbar.show({
+        text: 'Enter valid email address.',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor: theme.colors.error,
+        textColor: 'white',
+      });
+    } else if (
+      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(pw) == false
+    ) {
+      Snackbar.show({
+        text: 'Password must be a complex one',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor: theme.colors.error,
+        textColor: 'white',
+      });
     } else {
       auth()
-        .signInWithEmailAndPassword(text, pw)
-        .then(res => {
+        .createUserWithEmailAndPassword(text.toLowerCase(), pw)
+        .then(()=>{
           navigation.replace('MainScreen');
         })
-        .catch(error => {
-          console.log(error);
-          Snackbar.show({
-            text: 'Wrong email or password.',
-            duration: Snackbar.LENGTH_SHORT,
-            backgroundColor: theme.colors.secondary,
-            textColor: 'white',
-          });
+        .catch(err => {
+          if (err.code == 'auth/email-already-in-use') {
+            Snackbar.show({
+              text: 'Email already regestered.',
+              duration: Snackbar.LENGTH_SHORT,
+              backgroundColor: theme.colors.secondary,
+              textColor: 'white',
+            });
+            // navigation.replace('MainScreen');
+          }
         });
     }
   };
@@ -125,7 +145,7 @@ const LoginScreen = ({navigation}) => {
           width: '100%',
         }}>
         <Text style={{fontWeight: 'bold', fontSize: 32, textAlign: 'center'}}>
-          Login Account
+          Create Account
         </Text>
         <Text
           style={{
@@ -133,7 +153,7 @@ const LoginScreen = ({navigation}) => {
             marginBottom: 20,
             color: theme.colors.secondary,
           }}>
-          Login an existing account.
+          Create a new account.
         </Text>
         <InputField
           iconSize={18}
@@ -157,7 +177,7 @@ const LoginScreen = ({navigation}) => {
         />
         <View style={{marginTop: 10, width: '100%'}}>
           <PrimaryButton
-            label={'LOGIN'}
+            label={'CREATE'}
             variant="contained"
             onAction={handleLogin}
           />
@@ -167,10 +187,10 @@ const LoginScreen = ({navigation}) => {
             onAction={signInWithGoogle}
           />
           <Text style={{color: theme.colors.secondary, marginTop: 30}}>
-            Don't have an account ?{' '}
+            Already have an account ?{' '}
             <TouchableOpacity
-              onPress={() => navigation.navigate('SignupScreen')}>
-              <Text style={{color: theme.colors.primary}}>Signup</Text>
+              onPress={() => navigation.navigate('LoginScreen')}>
+              <Text style={{color: theme.colors.primary}}>Login</Text>
             </TouchableOpacity>
           </Text>
         </View>
@@ -179,4 +199,4 @@ const LoginScreen = ({navigation}) => {
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;

@@ -15,7 +15,6 @@ export default MainScreen = () => {
         component={HomeScreen}
         options={{headerShown: false}}
       />
-      {/* <Drawer.Screen name="Notifications" component={NotificationsScreen} /> */}
     </Drawer.Navigator>
   );
 };
