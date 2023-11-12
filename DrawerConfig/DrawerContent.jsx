@@ -1,13 +1,23 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Image, ImageBackground } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import auth from '@react-native-firebase/auth';
+=======
+import React, {useEffect} from 'react';
+import {View, StyleSheet, Image, ImageBackground} from 'react-native';
+import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
+import {auth} from '@react-native-firebase/auth';
+
+>>>>>>> origin/master
 import {
   useTheme,
   Avatar,
   Title,
   Caption,
+<<<<<<< HEAD
   Drawer,
   Text,
 } from 'react-native-paper';
@@ -56,6 +66,45 @@ function DrawerContent(props) {
   const theme = useTheme()
 
   const [userPic, setUserPic] = useState()
+=======
+  Paragraph,
+  Drawer,
+  Text,
+  TouchableRipple,
+  Switch,
+} from 'react-native-paper';
+import {transparent} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+
+var Sidebar = [
+  {
+    name: 'home',
+    title: 'Home',
+    path: 'Home',
+  },
+  {
+    name: 'boxes',
+    title: 'Products',
+    path: 'Products',
+  },
+  {
+    name: 'users',
+    title: 'Accounts',
+    path: 'Accounts',
+  },
+  {
+    name: 'arrow-circle-down',
+    title: 'Stock In',
+    path: 'StockIn',
+  },
+  {
+    name: 'arrow-circle-up',
+    title: 'Stock Out',
+    path: 'StockOut',
+  },
+];
+function DrawerContent(props) {
+>>>>>>> origin/master
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
@@ -65,11 +114,18 @@ function DrawerContent(props) {
       forceCodeForRefreshToken: true,
       accountName: '',
     });
+<<<<<<< HEAD
     setUserPic(auth()?.currentUser.photoURL)
   }, []);
   console.log('->', auth);
   return (
     <View style={{ flex: 1 }}>
+=======
+  }, []);
+  console.log('->', auth);
+  return (
+    <View style={{flex: 1}}>
+>>>>>>> origin/master
       <DrawerContentScrollView {...props}>
         <View>
           {/* header */}
@@ -84,10 +140,16 @@ function DrawerContent(props) {
                 size={80}
                 color="white"
                 source={{
+<<<<<<< HEAD
                   uri: userPic ? userPic : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRspS_ukYMLvsWX4vPkC7PcTiCqJYIASaWapw&usqp=CAU',
                 }}
                 style={{
                   backgroundColor: theme.colors.background,
+=======
+                  uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRspS_ukYMLvsWX4vPkC7PcTiCqJYIASaWapw&usqp=CAU',
+                }}
+                style={{
+>>>>>>> origin/master
                   resizeMode: 'contain',
                   marginTop: '12%',
                   marginLeft: '10%',
@@ -96,7 +158,11 @@ function DrawerContent(props) {
 
               <View style={styles.drawerContent}>
                 <View style={styles.userInfoSection}>
+<<<<<<< HEAD
                   <View style={{ flexDirection: 'row', marginTop: 10 }}>
+=======
+                  <View style={{flexDirection: 'row', marginTop: 10}}>
+>>>>>>> origin/master
                     <View
                       style={{
                         paddingTop: 8,
@@ -117,7 +183,11 @@ function DrawerContent(props) {
               return (
                 <DrawerItem
                   key={i}
+<<<<<<< HEAD
                   icon={({ size }) => <VectorIcon iconFamily={v.iconFamily} name={v.icon} size={size} />}
+=======
+                  icon={({color, size}) => <Icon2 name={v.name} size={size} />}
+>>>>>>> origin/master
                   label={v.title}
                   onPress={() => {
                     props.navigation.navigate(v.path);
@@ -130,7 +200,11 @@ function DrawerContent(props) {
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
         <View>
+<<<<<<< HEAD
           <Text style={{ textAlign: 'center' }}>Designed by Aqib</Text>
+=======
+          <Text style={{textAlign: 'center'}}>Designed by Aqib</Text>
+>>>>>>> origin/master
         </View>
       </Drawer.Section>
     </View>
