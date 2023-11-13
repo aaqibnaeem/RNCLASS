@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button} from 'react-native-paper';
 import {useTheme} from 'react-native-paper';
-<<<<<<< HEAD
 import VectorIcon from './VectorIcon';
 
 const PrimaryButton = ({
@@ -11,6 +10,7 @@ const PrimaryButton = ({
   iconFamily,
   iconName,
   iconSize,
+  isLoading
 }) => {
   const theme = useTheme();
   return (
@@ -18,15 +18,9 @@ const PrimaryButton = ({
       icon={() => (
         <VectorIcon color="white" iconFamily={iconFamily} name={iconName} size={iconSize} />
       )}
+      loading={isLoading}
+      disabled={isLoading}
       onPress={onAction}
-=======
-
-const PrimaryButton = ({label, variant, onAction}) => {
-  const theme = useTheme();
-  return (
-    <Button
-    onPress={onAction}
->>>>>>> origin/master
       rippleColor={theme.colors.surface}
       mode={variant}
       style={{

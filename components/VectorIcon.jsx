@@ -12,6 +12,8 @@ import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMI from 'react-native-vector-icons/MaterialIcons';
 import IconOI from 'react-native-vector-icons/Octicons';
 import IconRNI from 'react-native-vector-icons/RNIMigration';
+import IconSLI from 'react-native-vector-icons/SimpleLineIcons';
+import IconIOI from 'react-native-vector-icons/Ionicons'
 
 const VectorIcon = props => {
   const {iconFamily, style, ...rest} = props; // Destructuring props
@@ -55,6 +57,12 @@ const VectorIcon = props => {
       break;
     case 'OI':
       SelectedIcon = IconOI;
+      break;
+    case 'SLI':
+      SelectedIcon = IconSLI;
+      break;
+    case 'IOI':
+      SelectedIcon = IconIOI;
       break;
     case 'RNI':
       SelectedIcon = IconRNI;

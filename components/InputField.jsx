@@ -18,7 +18,7 @@ const InputField = ({
   onAction,
   placeholder,
   _fontSize,
-  keyType
+  keyType,
 }) => {
   const theme = useTheme();
   return (

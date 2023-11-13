@@ -13,6 +13,7 @@ const ProductsScreen = ({navigation}) => {
   const [volume, setVolume] = useState();
   const [barcode, setBarcode] = useState();
   const [price, setPrice] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const theme = useTheme();
   const styles = StyleSheet.create({
@@ -38,7 +39,14 @@ const ProductsScreen = ({navigation}) => {
       barcode,
       price,
     };
-    if(obj.item && obj.barcode && obj.brand){
+    if (obj.item && obj.barcode && obj.brand) {
+      setIsLoading(true);
+      setProduct('');
+      setItem('');
+      setBrand('');
+      setVolume('');
+      setBarcode('');
+      setPrice('');
       firestore()
         .collection('Products')
         .add(obj)
@@ -49,17 +57,12 @@ const ProductsScreen = ({navigation}) => {
             backgroundColor: theme.colors.primary,
             textColor: 'white',
           });
-          setProduct('');
-          setItem('');
-          setBrand('');
-          setVolume('');
-          setBarcode('');
-          setPrice('');
+          setIsLoading(false);
         });
-    }else{
+    } else {
       Snackbar.show({
-        text: 'Please make sure all fields',
-        duration: Snackbar.LENGTH_SHORT,
+        text: 'Please provide Item name, Brand, Barcode',
+        duration: Snackbar.LENGTH_LONG,
         backgroundColor: theme.colors.error,
         textColor: 'white',
       });
@@ -136,6 +139,7 @@ const ProductsScreen = ({navigation}) => {
               label={'Add Product'}
               variant={'contained'}
               onAction={handleSubmit}
+              isLoading={isLoading}
             />
           </View>
         </View>

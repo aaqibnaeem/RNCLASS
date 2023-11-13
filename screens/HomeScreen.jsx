@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { View, Text, Alert, StyleSheet } from 'react-native';
-import { Avatar, Button, useTheme } from 'react-native-paper';
-import { PrimaryButton } from '../components';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {View, Text, Alert, StyleSheet} from 'react-native';
+import {Avatar, Button, useTheme} from 'react-native-paper';
+import {PrimaryButton} from '../components';
+import AppHeader from '../components/Header';
+import HeaderCard from '../components/HeaderCard';
+import DailyReports from '../components/DailyReports';
 
-const HomeSceen = ({ navigation }) => {
+const HomeSceen = ({navigation}) => {
   const theme = useTheme();
   const Styles = StyleSheet.create({
     header: {
@@ -49,16 +52,20 @@ const HomeSceen = ({ navigation }) => {
     }
   };
   return (
-    <View style={{ flex: 1 }}>
-      <View style={Styles.header}>
-        <Text style={Styles.heading}>Dashboard</Text>
-        <View>
+    <View style={{flex: 1}}>
+      <AppHeader
+        title={'Dashboard'}
+        rightElement={
           <PrimaryButton
             label={'Sign out'}
             variant={'contained'}
             onAction={signOut}
           />
-        </View>
+        }
+      />
+      <View style={{paddingHorizontal: 20}}>
+        <HeaderCard />
+        <DailyReports />
       </View>
     </View>
   );
