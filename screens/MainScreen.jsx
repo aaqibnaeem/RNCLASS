@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeScreen from './HomeScreen';
 import DrawerContent from '../DrawerConfig/DrawerContent';
 import ProductsScreen from './ProductsScreen';
+import AccountsScreen from './AccountsScreen';
 const Drawer = createDrawerNavigator();
 
 export default MainScreen = () => {
@@ -14,12 +15,17 @@ export default MainScreen = () => {
       <Drawer.Screen
         name="HomeScreen"
         component={HomeScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Drawer.Screen
         name="ProductsScreen"
         component={ProductsScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
+      />
+      <Drawer.Screen
+        name="AccountsScreen"
+        component={AccountsScreen}
+        options={{headerShown: false}}
       />
     </Drawer.Navigator>
   );

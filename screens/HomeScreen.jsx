@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {View, Text, Alert, StyleSheet} from 'react-native';
-import {Avatar, Button, useTheme} from 'react-native-paper';
-import {PrimaryButton} from '../components';
+import {View, Alert, StyleSheet, TouchableOpacity} from 'react-native';
+import {useTheme} from 'react-native-paper';
 import AppHeader from '../components/Header';
 import HeaderCard from '../components/HeaderCard';
 import DailyReports from '../components/DailyReports';
+import {VectorIcon} from '../components';
+import DashCard from '../components/DashCard';
 
 const HomeSceen = ({navigation}) => {
   const theme = useTheme();
@@ -56,16 +57,27 @@ const HomeSceen = ({navigation}) => {
       <AppHeader
         title={'Dashboard'}
         rightElement={
-          <PrimaryButton
-            label={'Sign out'}
-            variant={'contained'}
-            onAction={signOut}
-          />
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <VectorIcon
+              iconFamily={'AA'}
+              name={'menu-fold'}
+              size={25}
+              color={theme.colors.primary}
+            />
+          </TouchableOpacity>
         }
       />
       <View style={{paddingHorizontal: 20}}>
         <HeaderCard />
         <DailyReports />
+        <View>
+          <DashCard
+            iconFamily={'AA'}
+            iconName={'user'}
+            iconSize={25}
+            details={{label: 'Total Users', value: 1000}}
+          />
+        </View>
       </View>
     </View>
   );

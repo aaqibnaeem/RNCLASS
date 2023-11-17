@@ -29,7 +29,7 @@ var Sidebar = [
   },
   {
     title: 'Accounts',
-    path: 'Accounts',
+    path: 'AccountsScreen',
     iconFamily: 'AA',
     icon: 'user',
   },

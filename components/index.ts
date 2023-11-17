@@ -1,5 +1,6 @@
 import InputField from './InputField';
 import PrimaryButton from './PrimaryButton';
 import VectorIcon from './VectorIcon';
+import DashCard from './DashCard';
 
-export {InputField, PrimaryButton, VectorIcon};
+export {DashCard, InputField, PrimaryButton, VectorIcon};

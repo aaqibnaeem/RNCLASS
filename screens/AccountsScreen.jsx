@@ -7,13 +7,11 @@ import {InputField, PrimaryButton, VectorIcon} from '../components';
 import firestore from '@react-native-firebase/firestore';
 
 const ProductsScreen = ({navigation}) => {
-  const [product, setProduct] = useState();
-  const [item, setItem] = useState();
-  const [brand, setBrand] = useState();
-  const [volume, setVolume] = useState();
-  const [barcode, setBarcode] = useState();
-  const [price, setPrice] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [account, setAccount] = useState('');
+  const [address, setAddress] = useState('');
+  const [type, setType] = useState('');
+  const [belong, setBelong] = useState('');
+  const [loading, setIsLoading] = useState(false);
 
   const theme = useTheme();
   const styles = StyleSheet.create({
@@ -32,27 +30,23 @@ const ProductsScreen = ({navigation}) => {
   });
   const handleSubmit = () => {
     const obj = {
-      product,
-      item,
-      brand,
-      volume,
-      barcode,
-      price,
+      account,
+      address,
+      type,
+      belong,
     };
-    if (obj.item && obj.barcode && obj.brand) {
+    if (obj.account) {
       setIsLoading(true);
-      setProduct('');
-      setItem('');
-      setBrand('');
-      setVolume('');
-      setBarcode('');
-      setPrice('');
+      setAccount('');
+      setAddress('');
+      setType('');
+      setBelong('');
       firestore()
-        .collection('Products')
+        .collection('Accounts')
         .add(obj)
         .then(() => {
           Snackbar.show({
-            text: 'Product added',
+            text: 'Account added',
             duration: Snackbar.LENGTH_SHORT,
             backgroundColor: theme.colors.primary,
             textColor: 'white',
@@ -61,7 +55,7 @@ const ProductsScreen = ({navigation}) => {
         });
     } else {
       Snackbar.show({
-        text: 'Please provide Item name, Brand, Barcode',
+        text: 'Please provide Account name',
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: theme.colors.error,
         textColor: 'white',
@@ -71,7 +65,7 @@ const ProductsScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <AppHeader
-        title={'Products Registeration'}
+        title={'Accounts Registeration'}
         rightElement={
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <VectorIcon
@@ -90,56 +84,43 @@ const ProductsScreen = ({navigation}) => {
           fontWeight: 'bold',
           marginTop: 40,
         }}>
-        Register your products
+        Register your Accounts
       </Text>
       <View style={styles.content}>
         <View style={{width: '100%', marginBottom: 200}}>
           <InputField
-            value={item}
+            value={account}
             _elevation={2}
-            placeholder={'Enter Item name (e.g., iPhone 12)'}
-            onChangeText={text => setItem(text)}
+            placeholder={'Enter Account name'}
+            onChangeText={text => setAccount(text)}
           />
           <InputField
-            value={product}
+            value={address}
             _elevation={2}
-            placeholder={'Enter Product type (e.g., Mobile)'}
-            onChangeText={text => setProduct(text)}
+            placeholder={'Enter Address'}
+            onChangeText={text => setAddress(text)}
           />
           <InputField
-            value={brand}
+            value={type}
             _elevation={2}
-            placeholder={'Enter Brand (e.g., Apple)'}
-            onChangeText={text => setBrand(text)}
+            placeholder={'Enter Type'}
+            onChangeText={text => setType(text)}
           />
           <InputField
-            value={volume}
+            value={belong}
             _elevation={2}
-            placeholder={'Enter Volume (e.g., PCS, KG, Set, Ltr)'}
-            onChangeText={text => setVolume(text)}
-          />
-          <InputField
-            value={barcode}
-            _elevation={2}
-            placeholder={'Enter Code (e.g., AMIP12 or scan)'}
-            onChangeText={text => setBarcode(text)}
-          />
-          <InputField
-            value={price}
-            _elevation={2}
-            placeholder={'Sale price'}
-            keyType={'phone-pad'}
-            onChangeText={text => setPrice(text)}
+            placeholder={'Enter Belong'}
+            onChangeText={text => setBelong(text)}
           />
           <View style={{marginTop: 20}}>
             <PrimaryButton
               iconFamily="AA"
               iconName="pluscircleo"
               color="white"
-              label={'Add Product'}
+              label={'Add Account'}
               variant={'contained'}
               onAction={handleSubmit}
-              isLoading={isLoading}
+              isLoading={loading}
             />
           </View>
         </View>
