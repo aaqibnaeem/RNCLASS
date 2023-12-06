@@ -15,12 +15,13 @@ const App = () => {
     colors: {
       ...DefaultTheme.colors,
       primary: '#23BE84',
-      primaryLight: '#23BE8450',
+      primaryLight: '#4adea8',
       background: '#F2F2F2',
       secondary: '#1E3E59',
       surface: '#FFFFFF',
       text: '#333333',
       disabled: '#BFBFBF',
+      white:"#FFFFFF"
     },
     roundness: 8,
   };

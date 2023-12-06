@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -8,8 +9,21 @@ import HeaderCard from '../components/HeaderCard';
 import DailyReports from '../components/DailyReports';
 import {VectorIcon} from '../components';
 import DashCard from '../components/DashCard';
+import firestore from '@react-native-firebase/firestore';
 
 const HomeSceen = ({navigation}) => {
+  const [counts, setCounts] = useState({});
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    let obj = {};
+    let productsData = await firestore().collection('Products').get();
+    obj.productsCount = productsData?.docs?.length;
+    let accountsData = await firestore().collection('Accounts').get();
+    obj.accountsCount = accountsData.docs.length;
+    setCounts(obj);
+  };
   const theme = useTheme();
   const Styles = StyleSheet.create({
     header: {
@@ -70,12 +84,25 @@ const HomeSceen = ({navigation}) => {
       <View style={{paddingHorizontal: 20}}>
         <HeaderCard />
         <DailyReports />
-        <View>
+        <View style={{flexDirection: 'row', gap: 10}}>
           <DashCard
             iconFamily={'AA'}
             iconName={'user'}
             iconSize={25}
-            details={{label: 'Total Users', value: 1000}}
+            details={{
+              label: 'Total Accounts',
+              value: counts?.accountsCount || 0,
+            }}
+          />
+          <DashCard
+          onAction={()=>console.log("navigate krwa do")}
+            iconFamily={'FT'}
+            iconName={'box'}
+            iconSize={25}
+            details={{
+              label: 'Total Products',
+              value: counts?.productsCount || 0,
+            }}
           />
         </View>
       </View>

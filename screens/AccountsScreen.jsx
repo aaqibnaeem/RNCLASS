@@ -91,25 +91,25 @@ const ProductsScreen = ({navigation}) => {
           <InputField
             value={account}
             _elevation={2}
-            placeholder={'Enter Account name'}
+            placeholder={'Account name'}
             onChangeText={text => setAccount(text)}
           />
           <InputField
             value={address}
             _elevation={2}
-            placeholder={'Enter Address'}
+            placeholder={'Address'}
             onChangeText={text => setAddress(text)}
           />
           <InputField
             value={type}
             _elevation={2}
-            placeholder={'Enter Type'}
+            placeholder={'Type'}
             onChangeText={text => setType(text)}
           />
           <InputField
             value={belong}
             _elevation={2}
-            placeholder={'Enter Belong'}
+            placeholder={'Belong'}
             onChangeText={text => setBelong(text)}
           />
           <View style={{marginTop: 20}}>
