@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import AppHeader from '../components/Header';
+import {AppHeader} from '../components';
 
 const ForYou = () => {
   return (

@@ -10,6 +10,10 @@ const SignupScreen = ({navigation}) => {
   const [text, setText] = React.useState('');
   const [pw, setPw] = React.useState('');
   const [showPw, togglePw] = React.useState(false);
+  const [creating, setCreating] = React.useState({
+    email: false,
+    google: false,
+  });
   const theme = useTheme();
   const styles = StyleSheet.create({
     wrapper: {
@@ -65,6 +69,7 @@ const SignupScreen = ({navigation}) => {
   }
 
   const gSignIn = async () => {
+    setCreating({...creating, google: true});
     try {
       await GoogleSignin.hasPlayServices();
       GoogleSignin.configure({
@@ -81,9 +86,11 @@ const SignupScreen = ({navigation}) => {
 
       const googleCredentials = auth.GoogleAuthProvider.credential(idToken);
       await auth().signInWithCredential(googleCredentials);
+      setCreating({...creating, google: false});
       return userInfo;
     } catch (error) {
       console.log(error);
+      setCreating({...creating, google: false});
     }
   };
 
@@ -122,12 +129,15 @@ const SignupScreen = ({navigation}) => {
         textColor: 'white',
       });
     } else {
+      setCreating({...creating, email: true});
       auth()
         .createUserWithEmailAndPassword(text.toLowerCase(), pw)
         .then(() => {
+          setCreating({...creating, email: false});
           navigation.replace('MainScreen');
         })
         .catch(err => {
+          setCreating({...creating, email: false});
           if (err.code == 'auth/email-already-in-use') {
             Snackbar.show({
               text: 'Email already regestered.',
@@ -143,7 +153,7 @@ const SignupScreen = ({navigation}) => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.headingContainer}>
-        <Text style={styles.headinTitle}>Create Account</Text>
+        <Text style={styles.headingTitle}>Create Account</Text>
         <Text style={styles.subHeading}>Create a new account.</Text>
         <InputField
           iconSize={18}
@@ -170,11 +180,13 @@ const SignupScreen = ({navigation}) => {
             label={'CREATE'}
             variant="contained"
             onAction={handleLogin}
+            isLoading={creating.email}
           />
           <PrimaryButton
             variant={'contained'}
             label={'CONTINUE WITH GOOGLE'}
             onAction={signInWithGoogle}
+            isLoading={creating.google}
           />
           <Text style={styles.noteContainer}>
             Already have an account ?{' '}

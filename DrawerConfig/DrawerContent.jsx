@@ -17,26 +17,26 @@ var Sidebar = [
   {
     title: 'Feed',
     path: 'HomeScreen',
-    iconFamily: 'FA',
-    icon: 'newspaper-o',
+    iconFamily: 'IOI',
+    icon: 'newspaper-outline',
   },
   {
     title: 'Receive Donation',
-    path: 'StockIn',
+    path: 'DonationReceive',
     iconFamily: 'AA',
     icon: 'arrowdown',
   },
   {
     title: 'Send Donation',
-    path: 'StockOut',
+    path: 'DonationSend',
     iconFamily: 'AA',
     icon: 'arrowup',
   },
   {
-    title: 'Expense',
-    path: 'ExpenseScreen',
+    title: 'For You',
+    path: 'forYou',
     iconFamily: 'AA',
-    icon: 'wallet',
+    icon: 'staro',
   },
 ];
 function DrawerContent(props) {

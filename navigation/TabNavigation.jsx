@@ -42,8 +42,8 @@ const TabNavigation = () => {
           tabBarIcon: ({focused}) => {
             return (
               <VectorIcon
-                iconFamily={'FA'}
-                name={'newspaper-o'}
+                iconFamily={'IOI'}
+                name={'newspaper-outline'}
                 size={25}
                 color={focused ? theme.colors.primary : theme.colors.secondary}
               />

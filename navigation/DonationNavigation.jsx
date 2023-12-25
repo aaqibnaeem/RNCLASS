@@ -3,7 +3,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import DonationReceive from '../screens/DonationReceive';
 import DonationSend from '../screens/DonationSend';
 import {View} from 'react-native';
-import AppHeader from '../components/Header';
+import {AppHeader} from '../components';
 
 const Tab = createMaterialTopTabNavigator();
 

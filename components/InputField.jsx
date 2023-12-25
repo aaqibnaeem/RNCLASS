@@ -1,6 +1,6 @@
 import React from 'react';
 import {TextInput, View, TouchableOpacity} from 'react-native';
-import {Button, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import UserIcon from 'react-native-vector-icons/AntDesign';
 import PassIcon from 'react-native-vector-icons/MaterialIcons';
 import EyeIcon from 'react-native-vector-icons/Octicons';

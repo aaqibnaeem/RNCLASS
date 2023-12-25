@@ -1,9 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
-import {VectorIcon} from '../components';
-import AppHeader from '../components/Header';
+import {AppHeader, VectorIcon, PostCard} from '../components';
 import {useTheme} from 'react-native-paper';
-import PostCard from '../components/PostCard';
 
 const HomeScreen = ({navigation, counts}) => {
   const theme = useTheme();
