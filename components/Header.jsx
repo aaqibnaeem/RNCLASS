@@ -14,7 +14,7 @@ const AppHeader = ({title, rightElement}) => {
       justifyContent: 'space-between',
       paddingHorizontal: 10,
     },
-    title: {fontSize: 18, fontWeight: 'bold', color: theme.colors.primary},
+    title: {fontSize: 18, fontWeight: 'bold', color: theme.colors.secondary},
   });
   return (
     <View style={Styles.header}>

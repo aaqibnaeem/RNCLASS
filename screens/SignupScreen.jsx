@@ -11,15 +11,11 @@ const SignupScreen = ({navigation}) => {
   const [pw, setPw] = React.useState('');
   const [showPw, togglePw] = React.useState(false);
   const theme = useTheme();
-  // const myIcon = <Icon name="rocket" size={30} color="#900" />;
   const styles = StyleSheet.create({
     wrapper: {
       flex: 1,
       backgroundColor: theme.colors.background,
       padding: 40,
-      // alignItems: 'center',
-      // justifyContent: 'center',
-      // padding: 20,
     },
     inputsWrapper: {
       width: '100%',
@@ -37,6 +33,21 @@ const SignupScreen = ({navigation}) => {
       backgroundColor: 'black',
     },
     input: {width: '100%'},
+    headingContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      display: 'flex',
+      height: '100%',
+      width: '100%',
+    },
+    headingTitle: {fontWeight: 'bold', fontSize: 32, textAlign: 'center'},
+    subHeading: {
+      textAlign: 'center',
+      marginBottom: 20,
+      color: theme.colors.secondary,
+    },
+    buttonContainer: {marginTop: 10, width: '100%'},
+    noteContainer: {color: theme.colors.secondary, marginTop: 30},
   });
 
   React.useEffect(() => {
@@ -47,7 +58,9 @@ const SignupScreen = ({navigation}) => {
 
   async function signInWithGoogle() {
     gSignIn().then(data => {
-      if (data) navigation.replace('MainScreen');
+      if (data) {
+        navigation.replace('MainScreen');
+      }
     });
   }
 
@@ -74,22 +87,15 @@ const SignupScreen = ({navigation}) => {
     }
   };
 
-  {
-    /*
-    keytool -genkeypair -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
-    keytool -list -v -keystore "C:\Program Files\Microsoft\jdk-11.0.20.8-hotspot\bin\debug.keystore" -alias androiddebugkey -storepass android -keypass android
-    */
-  }
-
   const handleLogin = async () => {
-    if (text == '') {
+    if (text === '') {
       Snackbar.show({
         text: 'Enter email address',
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor: theme.colors.primary,
         textColor: 'white',
       });
-    } else if (pw == '') {
+    } else if (pw === '') {
       Snackbar.show({
         text: 'Enter password',
         duration: Snackbar.LENGTH_SHORT,
@@ -98,7 +104,7 @@ const SignupScreen = ({navigation}) => {
         textColor: 'white',
       });
     } else if (
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text) == false
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text) === false
     ) {
       Snackbar.show({
         text: 'Enter valid email address.',
@@ -107,7 +113,7 @@ const SignupScreen = ({navigation}) => {
         textColor: 'white',
       });
     } else if (
-      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(pw) == false
+      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(pw) === false
     ) {
       Snackbar.show({
         text: 'Password must be a complex one',
@@ -118,7 +124,7 @@ const SignupScreen = ({navigation}) => {
     } else {
       auth()
         .createUserWithEmailAndPassword(text.toLowerCase(), pw)
-        .then(()=>{
+        .then(() => {
           navigation.replace('MainScreen');
         })
         .catch(err => {
@@ -136,25 +142,9 @@ const SignupScreen = ({navigation}) => {
   };
   return (
     <View style={styles.wrapper}>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          display: 'flex',
-          height: '100%',
-          width: '100%',
-        }}>
-        <Text style={{fontWeight: 'bold', fontSize: 32, textAlign: 'center'}}>
-          Create Account
-        </Text>
-        <Text
-          style={{
-            textAlign: 'center',
-            marginBottom: 20,
-            color: theme.colors.secondary,
-          }}>
-          Create a new account.
-        </Text>
+      <View style={styles.headingContainer}>
+        <Text style={styles.headinTitle}>Create Account</Text>
+        <Text style={styles.subHeading}>Create a new account.</Text>
         <InputField
           iconSize={18}
           value={text}
@@ -175,7 +165,7 @@ const SignupScreen = ({navigation}) => {
           _elevation={2}
           onAction={() => togglePw(!showPw)}
         />
-        <View style={{marginTop: 10, width: '100%'}}>
+        <View style={styles.buttonContainer}>
           <PrimaryButton
             label={'CREATE'}
             variant="contained"
@@ -186,7 +176,7 @@ const SignupScreen = ({navigation}) => {
             label={'CONTINUE WITH GOOGLE'}
             onAction={signInWithGoogle}
           />
-          <Text style={{color: theme.colors.secondary, marginTop: 30}}>
+          <Text style={styles.noteContainer}>
             Already have an account ?{' '}
             <TouchableOpacity
               onPress={() => navigation.navigate('LoginScreen')}>

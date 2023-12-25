@@ -1,12 +1,10 @@
 import * as React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import HomeScreen from './HomeScreen';
 import DrawerContent from '../DrawerConfig/DrawerContent';
-import ProductsScreen from './ProductsScreen';
-import AccountsScreen from './AccountsScreen';
+import TabNavigation from './TabNavigation';
 const Drawer = createDrawerNavigator();
 
-export default MainScreen = () => {
+const DrawerNavigation = () => {
   return (
     <Drawer.Navigator
       drawerContent={props => <DrawerContent {...props} />}
@@ -14,19 +12,11 @@ export default MainScreen = () => {
       defaultStatus="closed">
       <Drawer.Screen
         name="HomeScreen"
-        component={HomeScreen}
-        options={{headerShown: false}}
-      />
-      <Drawer.Screen
-        name="ProductsScreen"
-        component={ProductsScreen}
-        options={{headerShown: false}}
-      />
-      <Drawer.Screen
-        name="AccountsScreen"
-        component={AccountsScreen}
+        component={TabNavigation}
         options={{headerShown: false}}
       />
     </Drawer.Navigator>
   );
 };
+
+export default DrawerNavigation;

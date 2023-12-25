@@ -1,5 +1,7 @@
 import InputField from './InputField';
 import PrimaryButton from './PrimaryButton';
 import VectorIcon from './VectorIcon';
+import Dropdown from './Dropdown';
+import PostCard from './PostCard';
 
-export {InputField, PrimaryButton, VectorIcon};
+export {Dropdown, InputField, PrimaryButton, PostCard, VectorIcon};

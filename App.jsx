@@ -5,9 +5,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 import {PaperProvider, DefaultTheme} from 'react-native-paper';
 import SignupScreen from './screens/SignupScreen';
-import MainScreen from './screens/MainScreen';
 import Splash from './screens/Splash';
 import LoginScreen from './screens/LoginScreen';
+import DrawerNavigation from './navigation/DrawerNavigation';
 
 const App = () => {
   const customTheme = {
@@ -21,7 +21,8 @@ const App = () => {
       surface: '#FFFFFF',
       text: '#333333',
       disabled: '#BFBFBF',
-      white:"#FFFFFF"
+      white: '#FFFFFF',
+      borderColor: '#E3E3E3',
     },
     roundness: 8,
   };
@@ -47,7 +48,7 @@ const App = () => {
             />
             <Stack.Screen
               name="MainScreen"
-              component={MainScreen}
+              component={DrawerNavigation}
               options={{headerShown: false}}
             />
           </Stack.Navigator>

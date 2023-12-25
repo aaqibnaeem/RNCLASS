@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Image, ImageBackground} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import auth from '@react-native-firebase/auth';
 import {
   useTheme,
@@ -16,31 +15,19 @@ import {VectorIcon} from '../components';
 
 var Sidebar = [
   {
-    title: 'Home',
+    title: 'Feed',
     path: 'HomeScreen',
-    iconFamily: 'AA',
-    icon: 'home',
+    iconFamily: 'FA',
+    icon: 'newspaper-o',
   },
   {
-    title: 'Products',
-    path: 'ProductsScreen',
-    iconFamily: 'FT',
-    icon: 'box',
-  },
-  {
-    title: 'Accounts',
-    path: 'AccountsScreen',
-    iconFamily: 'AA',
-    icon: 'user',
-  },
-  {
-    title: 'Stock In',
+    title: 'Receive Donation',
     path: 'StockIn',
     iconFamily: 'AA',
     icon: 'arrowdown',
   },
   {
-    title: 'Stock Out',
+    title: 'Send Donation',
     path: 'StockOut',
     iconFamily: 'AA',
     icon: 'arrowup',
@@ -80,14 +67,8 @@ function DrawerContent(props) {
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
         <View>
-          {/* header */}
           <View>
-            <View
-            // source={{
-            //   uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmu9qZHSRiMOqjbLmZidt10ailLsX9wNTLpe1erMyUs24TZT3y7Bd8J3NVVuga8mMEW5g&usqp=CAU',
-            // }}
-            // style={{width: '100%', height: 180, marginTop: '-2%'}}
-            >
+            <View>
               <Avatar.Image
                 size={80}
                 color="white"
@@ -142,13 +123,11 @@ function DrawerContent(props) {
               );
             })}
           </Drawer.Section>
-          {/* <Drawer.Section> */}
           <DrawerItem
             onPress={handleLogout}
             icon={() => <VectorIcon iconFamily="SLI" name="logout" size={25} />}
             label="Sign Out"
           />
-          {/* </Drawer.Section> */}
         </View>
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
