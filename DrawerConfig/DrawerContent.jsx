@@ -21,16 +21,16 @@ var Sidebar = [
     icon: 'newspaper-outline',
   },
   {
-    title: 'Receive Donation',
+    title: 'Request Donation',
     path: 'DonationReceive',
-    iconFamily: 'AA',
-    icon: 'arrowdown',
+    iconFamily: 'MC',
+    icon: 'hand-extended-outline',
   },
   {
     title: 'Send Donation',
     path: 'DonationSend',
-    iconFamily: 'AA',
-    icon: 'arrowup',
+    iconFamily: 'MC',
+    icon: 'charity',
   },
   {
     title: 'For You',

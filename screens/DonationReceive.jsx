@@ -22,7 +22,6 @@ const DonationReceive = () => {
       fontSize: 30,
       marginVertical: 25,
       fontWeight: 'bold',
-      textAlign: 'center',
     },
   });
   const types = [
@@ -51,11 +50,12 @@ const DonationReceive = () => {
       <ScrollView>
         <KeyboardAvoidingView>
           <Text style={styles.heading}>Request a donation</Text>
-          <View style={{padding: 20, gap: 20}}>
+          <View style={{gap: 20}}>
             <Select
               onAction={val => setType(val.value)}
               value={type}
               data={types}
+              placeholder="Select a type"
             />
             <TextAreaInput
               label="Description"

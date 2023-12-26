@@ -7,12 +7,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import DonationNavigation from './DonationNavigation';
 import ForYou from '../screens/ForYou';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {View} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
   const theme = useTheme();
-
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
@@ -24,70 +25,101 @@ const TabNavigation = () => {
     });
   }, []);
   return (
-    <Tab.Navigator
-      initialRouteName="donation"
-      screenOptions={{
-        tabBarActiveTintColor: theme.colors.primary,
-        tabBarInactiveTintColor: theme.colors.secondary,
-      }}>
-      <Tab.Screen
-        name="HomeTab"
-        component={HomeScreen}
-        options={{
-          headerShown: false,
-          title: 'Feed',
-          tabBarIconStyle: {
-            backgroundColor: 'blue',
+    <SafeAreaProvider>
+      <Tab.Navigator
+        initialRouteName="donation"
+        screenOptions={{
+          tabBarActiveTintColor: theme.colors.primary,
+          tabBarInactiveTintColor: theme.colors.secondary,
+          tabBarStyle: {
+            marginHorizontal: 10,
+            marginBottom: 10,
+            elevation: 1,
+            height: 60,
+            paddingBottom: 6,
+            borderRadius: theme.roundness,
           },
-          tabBarIcon: ({focused}) => {
-            return (
-              <VectorIcon
-                iconFamily={'IOI'}
-                name={'newspaper-outline'}
-                size={25}
-                color={focused ? theme.colors.primary : theme.colors.secondary}
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name="donation"
-        component={DonationNavigation}
-        options={{
-          headerShown: false,
-          title: 'Donation',
-          tabBarIcon: ({focused}) => {
-            return (
-              <VectorIcon
-                iconFamily={'AA'}
-                name={'pluscircleo'}
-                size={25}
-                color={focused ? theme.colors.primary : theme.colors.secondary}
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name="forYou"
-        component={ForYou}
-        options={{
-          headerShown: false,
-          title: 'Donation',
-          tabBarIcon: ({focused}) => {
-            return (
-              <VectorIcon
-                iconFamily={'AA'}
-                name={'staro'}
-                size={25}
-                color={focused ? theme.colors.primary : theme.colors.secondary}
-              />
-            );
-          },
-        }}
-      />
-    </Tab.Navigator>
+        }}>
+        <Tab.Screen
+          name="HomeTab"
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+            title: 'Feed',
+            tabBarIconStyle: {
+              backgroundColor: 'blue',
+            },
+            tabBarIcon: ({focused}) => {
+              return (
+                <VectorIcon
+                  iconFamily={'IOI'}
+                  name={'newspaper-outline'}
+                  size={25}
+                  color={
+                    focused ? theme.colors.primary : theme.colors.secondary
+                  }
+                />
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name="donation"
+          component={DonationNavigation}
+          options={{
+            headerShown: false,
+            title: 'Donation',
+            tabBarLabel: '',
+            tabBarIcon: ({focused}) => {
+              return (
+                <View
+                  tran
+                  style={{
+                    position: 'absolute',
+                    top: -20,
+                    backgroundColor: theme.colors.surface,
+                    borderRadius: 100,
+                    padding: 2,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    display: 'flex',
+                    elevation: 2,
+                  }}>
+                  <VectorIcon
+                    iconFamily={'AA'}
+                    name={'pluscircleo'}
+                    size={50}
+                    color={
+                      focused ? theme.colors.primary : theme.colors.secondary
+                    }
+                  />
+                </View>
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name="forYou"
+          component={ForYou}
+          options={{
+            headerShown: false,
+            title: 'For you',
+            tabBarIcon: ({focused}) => {
+              return (
+                <VectorIcon
+                  iconFamily={'AA'}
+                  name={'staro'}
+                  size={25}
+                  color={
+                    focused ? theme.colors.primary : theme.colors.secondary
+                  }
+                />
+              );
+            },
+          }}
+        />
+      </Tab.Navigator>
+    </SafeAreaProvider>
   );
 };
 

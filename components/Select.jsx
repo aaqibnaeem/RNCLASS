@@ -1,10 +1,16 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import VectorIcon from './VectorIcon';
 import {useTheme} from 'react-native-paper';
 
-const Select = ({placeholder = 'Donation Type', onAction, value, data}) => {
+const Select = ({
+  placeholder = 'Donation Type',
+  onAction,
+  value,
+  data,
+  searchEnabled,
+}) => {
   const theme = useTheme();
   const styles = StyleSheet.create({
     dropdown: {
@@ -21,14 +27,16 @@ const Select = ({placeholder = 'Donation Type', onAction, value, data}) => {
     placeholderStyle: {
       fontSize: 16,
       paddingLeft: 6,
+      paddingBottom: 2,
     },
     selectedTextStyle: {
       fontSize: 16,
       paddingLeft: 6,
+      paddingBottom: 2,
     },
     iconStyle: {
-      width: 20,
-      height: 20,
+      width: 25,
+      height: 25,
     },
     inputSearchStyle: {
       height: 40,
@@ -38,8 +46,8 @@ const Select = ({placeholder = 'Donation Type', onAction, value, data}) => {
 
   return (
     <View>
-      {/* {renderLabel()} */}
       <Dropdown
+        search={searchEnabled}
         style={styles.dropdown}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
