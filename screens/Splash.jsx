@@ -18,7 +18,7 @@ const Splash = ({navigation}) => {
         backgroundColor: theme.colors.background,
       }}>
       <Image
-        source={require('../assets/images/A.png')}
+        source={require('../assets/images/logo.png')}
         style={{width: 100, height: 100}}
         resizeMode="contain"
       />

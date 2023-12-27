@@ -67,12 +67,12 @@ const DonationReceive = () => {
               textAlign="center"
               value={amount}
               onChangeText={val => setAmount(val)}
+              _elevation={1}
             />
             <PrimaryButton
               variant="contained"
               onAction={handleSubmit}
               label="Send Request"
-              _elevation={theme.elevation}
             />
           </View>
         </KeyboardAvoidingView>

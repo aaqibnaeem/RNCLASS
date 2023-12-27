@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput, View, TouchableOpacity} from 'react-native';
+import {TextInput, View, TouchableOpacity, Text} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import UserIcon from 'react-native-vector-icons/AntDesign';
 import PassIcon from 'react-native-vector-icons/MaterialIcons';

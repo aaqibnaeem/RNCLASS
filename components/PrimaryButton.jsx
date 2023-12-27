@@ -12,25 +12,29 @@ const PrimaryButton = ({
   iconName,
   iconSize,
   isLoading,
+  buttonWidth,
 }) => {
   const theme = useTheme();
   const Styles = StyleSheet.create({
     button: {
       borderRadius: 8,
-      width: '100%',
+      width: buttonWidth || '100%',
       margin: 2,
     },
   });
   return (
     <Button
-      icon={
-        <VectorIcon
-          color="white"
-          iconFamily={iconFamily}
-          name={iconName}
-          size={iconSize}
-        />
-      }
+      // eslint-disable-next-line react/no-unstable-nested-components
+      icon={() => {
+        return (
+          <VectorIcon
+            color="white"
+            iconFamily={iconFamily}
+            name={iconName}
+            size={iconSize}
+          />
+        );
+      }}
       loading={isLoading}
       disabled={isLoading}
       onPress={onAction}
