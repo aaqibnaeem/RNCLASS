@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {AppHeader, VectorIcon, PostCard} from '../components';
 import {useTheme} from 'react-native-paper';
-
+import firestore from '@react-native-firebase/firestore';
 const HomeScreen = ({navigation, counts}) => {
+  const [postData, setPostData] = useState([]);
   const theme = useTheme();
   const Styles = StyleSheet.create({
     container: {
@@ -36,7 +37,17 @@ const HomeScreen = ({navigation, counts}) => {
         'BitsPro software house specialized in tailored apps specially for business to manage their inventory and accounts in a centralized app.',
     },
   ];
-
+  useEffect(() => {
+    getPosts();
+  }, []);
+  const getPosts = async () => {
+    await firestore()
+      .collection('posts')
+      .get()
+      .then(res => {
+        setPostData(res.docs);
+      });
+  };
   return (
     <View style={Styles.container}>
       <AppHeader
@@ -53,14 +64,17 @@ const HomeScreen = ({navigation, counts}) => {
         }
       />
       <FlatList
-        data={dummy}
-        renderItem={data => (
-          <PostCard
-            imageURL={data.item.uri}
-            title={data.item.title}
-            description={data.item.description}
-          />
-        )}
+        data={postData}
+        renderItem={data => {
+          console.log(data);
+          return (
+            <PostCard
+              // imageURL={data.item.uri}
+              title={data.item._data.title}
+              description={data.item._data.description}
+            />
+          );
+        }}
       />
     </View>
   );

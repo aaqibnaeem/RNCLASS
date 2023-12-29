@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {TextAreaInput, PrimaryButton, InputField, Select} from '../components';
 import {useTheme} from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore';
 
 const DonationReceive = () => {
   const [type, setType] = React.useState('');
@@ -42,8 +43,25 @@ const DonationReceive = () => {
       value: 'disaster-aid',
     },
   ];
-  const handleSubmit = values => {
-    console.log(values);
+  const handleSubmit = async () => {
+    const _id = firestore().collection('requests').doc().id;
+    firestore()
+      .collection('requests')
+      .doc(_id)
+      .set({
+        type,
+        description,
+        amount,
+        approved: false,
+        created_at: new Date(),
+        id: _id,
+      })
+      .then(() => {
+        console.log('Posted');
+        setType('');
+        setDescription('');
+        setAmount('');
+      });
   };
   return (
     <View style={styles.wrapper}>

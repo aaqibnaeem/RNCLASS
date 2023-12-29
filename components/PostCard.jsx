@@ -25,6 +25,7 @@ const PostCard = ({imageURL, title, description}) => {
       flexDirection: 'row',
       gap: 10,
       justifyContent: 'space-between',
+      marginVertical: 10,
     },
   });
   return (
