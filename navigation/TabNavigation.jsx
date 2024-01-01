@@ -8,7 +8,9 @@ import HomeScreen from '../screens/HomeScreen';
 import DonationNavigation from './DonationNavigation';
 import ForYou from '../screens/ForYou';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import VideoPost from '../screens/VideoPosts';
+import About from '../screens/About';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +26,20 @@ const TabNavigation = () => {
       accountName: '',
     });
   }, []);
+
+  const styles = StyleSheet.create({
+    customIcon: {
+      position: 'absolute',
+      top: -20,
+      backgroundColor: theme.colors.surface,
+      borderRadius: 100,
+      padding: 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+      display: 'flex',
+      elevation: 2,
+    },
+  });
   return (
     <SafeAreaProvider>
       <Tab.Navigator
@@ -54,7 +70,30 @@ const TabNavigation = () => {
                 <VectorIcon
                   iconFamily={'IOI'}
                   name={'newspaper-outline'}
-                  size={25}
+                  size={22}
+                  color={
+                    focused ? theme.colors.primary : theme.colors.secondary
+                  }
+                />
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name="VideoPosts"
+          component={VideoPost}
+          options={{
+            headerShown: false,
+            title: 'Video Posts',
+            tabBarIconStyle: {
+              backgroundColor: 'blue',
+            },
+            tabBarIcon: ({focused}) => {
+              return (
+                <VectorIcon
+                  iconFamily={'AA'}
+                  name={'videocamera'}
+                  size={22}
                   color={
                     focused ? theme.colors.primary : theme.colors.secondary
                   }
@@ -72,19 +111,7 @@ const TabNavigation = () => {
             tabBarLabel: '',
             tabBarIcon: ({focused}) => {
               return (
-                <View
-                  tran
-                  style={{
-                    position: 'absolute',
-                    top: -20,
-                    backgroundColor: theme.colors.surface,
-                    borderRadius: 100,
-                    padding: 2,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    display: 'flex',
-                    elevation: 2,
-                  }}>
+                <View tran style={styles.customIcon}>
                   <VectorIcon
                     iconFamily={'AA'}
                     name={'pluscircleo'}
@@ -109,7 +136,27 @@ const TabNavigation = () => {
                 <VectorIcon
                   iconFamily={'AA'}
                   name={'staro'}
-                  size={25}
+                  size={23}
+                  color={
+                    focused ? theme.colors.primary : theme.colors.secondary
+                  }
+                />
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name="About"
+          component={About}
+          options={{
+            headerShown: false,
+            title: 'About',
+            tabBarIcon: ({focused}) => {
+              return (
+                <VectorIcon
+                  iconFamily={'AA'}
+                  name={'infocirlceo'}
+                  size={22}
                   color={
                     focused ? theme.colors.primary : theme.colors.secondary
                   }

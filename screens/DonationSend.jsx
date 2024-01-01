@@ -3,11 +3,20 @@ import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {InputField, PrimaryButton, TextAreaInput} from '../components';
 import {useTheme} from 'react-native-paper';
+import auth from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
 
 const DonationSend = () => {
+  const [currentlyConnected] = useState(auth()?.currentUser.uid);
   const theme = useTheme();
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [donationImg, setDonationImg] = useState('');
+  const [isUploading, setIsUploading] = useState({
+    camera: false,
+    picked: false,
+  });
   const styles = StyleSheet.create({
     heading: {
       fontSize: 30,
@@ -31,6 +40,7 @@ const DonationSend = () => {
       } else {
         let imageUri = response.uri || response.assets?.[0]?.uri;
         setSelectedImage(imageUri);
+        imageupload(imageUri, 'picked');
       }
     });
   };
@@ -53,10 +63,49 @@ const DonationSend = () => {
         // Process the captured image
         let imageUri = response.uri || response.assets?.[0]?.uri;
         setSelectedImage(imageUri);
-        console.log(imageUri);
+        imageupload(imageUri, 'camera');
       }
     });
   };
+
+  const imageupload = (imageurl, uploadType) => {
+    const uploadStatus = isUploading;
+    isUploading[uploadType] = true;
+    setIsUploading(uploadStatus);
+    console.log(isUploading);
+    const reference = storage().ref(
+      'donations/' + new Date().getTime() + '.jpg',
+    );
+    try {
+      const uploadTask = reference.putFile(imageurl);
+
+      uploadTask.on(
+        'state_changed',
+        snapshot => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(progress);
+        },
+        error => {
+          console.error('Error uploading image: ', error);
+        },
+        () => {
+          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            const img_url = downloadURL;
+            // setshowprogress(false);
+
+            console.log('File available at', img_url);
+            setDonationImg(img_url);
+            setIsUploading({...isUploading, [uploadType]: false});
+          });
+        },
+      );
+    } catch (error) {
+      console.error('Error uploading image: ', error);
+      setIsUploading({...isUploading, [uploadType]: false});
+    }
+  };
+
   console.log(selectedImage);
   return (
     <ScrollView style={{flex: 1}}>
@@ -64,7 +113,12 @@ const DonationSend = () => {
         <Text style={styles.heading}>Send Donation</Text>
         <View>
           <Text style={{fontWeight: 'bold'}}>Title</Text>
-          <InputField _elevation={1} />
+          <InputField
+            placeholder=""
+            value={title}
+            onChangeText={val => setTitle(val)}
+            _elevation={1}
+          />
         </View>
         <TextAreaInput
           label="Description"
@@ -108,6 +162,7 @@ const DonationSend = () => {
               label="Device"
               onAction={openImagePicker}
               variant="contained"
+              isLoading={isUploading.picked}
             />
 
             <PrimaryButton
@@ -118,9 +173,21 @@ const DonationSend = () => {
               label="Camera"
               onAction={handleCameraLaunch}
               variant="contained"
+              isLoading={isUploading.camera}
             />
           </View>
-          <PrimaryButton label="Submit" variant="contained" />
+          <PrimaryButton
+            label="Submit"
+            variant="contained"
+            onAction={async () => {
+              let obj = {
+                title,
+                description,
+                donationImg,
+              };
+              console.log(obj);
+            }}
+          />
         </View>
       </View>
     </ScrollView>

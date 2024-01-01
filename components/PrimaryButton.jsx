@@ -13,6 +13,7 @@ const PrimaryButton = ({
   iconSize,
   isLoading,
   buttonWidth,
+  isDisabled,
 }) => {
   const theme = useTheme();
   const Styles = StyleSheet.create({
@@ -36,7 +37,7 @@ const PrimaryButton = ({
         );
       }}
       loading={isLoading}
-      disabled={isLoading}
+      disabled={isLoading || isDisabled}
       onPress={onAction}
       rippleColor={theme.colors.surface}
       mode={variant}

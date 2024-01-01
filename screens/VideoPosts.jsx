@@ -3,16 +3,16 @@ import {View, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {AppHeader, VectorIcon, PostCard} from '../components';
 import {ActivityIndicator, useTheme} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
-const HomeScreen = ({navigation, counts}) => {
+const VideoPosts = ({navigation, counts}) => {
   const [postData, setPostData] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
+
   const theme = useTheme();
   const Styles = StyleSheet.create({
     container: {
       flex: 1,
     },
   });
-
   useEffect(() => {
     getPosts();
   }, []);
@@ -28,7 +28,7 @@ const HomeScreen = ({navigation, counts}) => {
   return (
     <View style={Styles.container}>
       <AppHeader
-        title={'Feed'}
+        title={'Video'}
         rightElement={
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <VectorIcon
@@ -44,11 +44,12 @@ const HomeScreen = ({navigation, counts}) => {
         <FlatList
           data={postData}
           renderItem={data => {
-            const {imageUrl, type} = data.item._data;
-            if (type !== 'video') {
+            if (data.item._data.type === 'video') {
               return (
                 <PostCard
-                  imageURL={imageUrl && imageUrl}
+                  type="video"
+                  // imageURL={imageUrl && imageUrl}
+                  videoID={data.item._data.videoID || 'QuHFyB7Xx8U'}
                   title={data.item._data.title}
                   description={data.item._data.description}
                 />
@@ -67,4 +68,4 @@ const HomeScreen = ({navigation, counts}) => {
   );
 };
 
-export default HomeScreen;
+export default VideoPosts;

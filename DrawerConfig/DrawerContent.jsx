@@ -55,8 +55,9 @@ function DrawerContent(props) {
     setUserPic(auth()?.currentUser.photoURL);
   }, []);
 
-  const handleLogout = () => {
-    auth()
+  const handleLogout = async () => {
+    await GoogleSignin.revokeAccess();
+    await auth()
       .signOut()
       .then(() => {
         props.navigation.replace('LoginScreen');

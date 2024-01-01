@@ -2,8 +2,15 @@ import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import IconButton from './IconButton';
+import YoutubePlayer from 'react-native-youtube-iframe';
 
-const PostCard = ({imageURL, title, description}) => {
+const PostCard = ({
+  imageURL,
+  title,
+  description,
+  type = 'regular',
+  videoID,
+}) => {
   const theme = useTheme();
   const Styles = StyleSheet.create({
     container: {
@@ -35,9 +42,14 @@ const PostCard = ({imageURL, title, description}) => {
           source={{
             uri: imageURL,
           }}
-          resizeMode="cover"
+          resizeMode="contain"
           style={Styles.thumbnail}
         />
+      )}
+      {type === 'video' && (
+        <View>
+          <YoutubePlayer height={250} videoId={videoID} play={false} />
+        </View>
       )}
       <View>
         <Text style={Styles.title}>{title}</Text>
