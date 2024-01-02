@@ -89,7 +89,6 @@ const LoginScreen = ({navigation}) => {
       setLogging({...logging, google: false});
       return userInfo;
     } catch (error) {
-      console.log(error);
       setLogging({...logging, google: false});
     }
   };
@@ -119,7 +118,6 @@ const LoginScreen = ({navigation}) => {
           setLogging({...logging, email: false});
         })
         .catch(error => {
-          console.log(error);
           setLogging({...logging, email: false});
           Snackbar.show({
             text: 'Wrong email or password.',

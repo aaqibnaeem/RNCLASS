@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import IconButton from './IconButton';
@@ -35,6 +35,7 @@ const PostCard = ({
       marginVertical: 10,
     },
   });
+
   return (
     <View style={Styles.container}>
       {imageURL && (
@@ -61,14 +62,12 @@ const PostCard = ({
           name={'heart'}
           size={18}
           color={theme.colors.secondary}
-          onPress={() => console.log('pressed')}
         />
         <IconButton
           iconFamily={'F5'}
           name={'share'}
           size={18}
           color={theme.colors.secondary}
-          onPress={() => console.log('pressed')}
         />
       </View>
     </View>

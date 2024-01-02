@@ -5,6 +5,8 @@ import {InputField, PrimaryButton, TextAreaInput} from '../components';
 import {useTheme} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
+import Snackbar from 'react-native-snackbar';
 
 const DonationSend = () => {
   const [currentlyConnected] = useState(auth()?.currentUser.uid);
@@ -13,6 +15,7 @@ const DonationSend = () => {
   const [description, setDescription] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [donationImg, setDonationImg] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState({
     camera: false,
     picked: false,
@@ -72,7 +75,6 @@ const DonationSend = () => {
     const uploadStatus = isUploading;
     isUploading[uploadType] = true;
     setIsUploading(uploadStatus);
-    console.log(isUploading);
     const reference = storage().ref(
       'donations/' + new Date().getTime() + '.jpg',
     );
@@ -92,9 +94,6 @@ const DonationSend = () => {
         () => {
           uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
             const img_url = downloadURL;
-            // setshowprogress(false);
-
-            console.log('File available at', img_url);
             setDonationImg(img_url);
             setIsUploading({...isUploading, [uploadType]: false});
           });
@@ -105,8 +104,37 @@ const DonationSend = () => {
       setIsUploading({...isUploading, [uploadType]: false});
     }
   };
-
-  console.log(selectedImage);
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    const _id = firestore().collection('donations').doc().id;
+    firestore()
+      .collection('donations')
+      .doc(_id)
+      .set({
+        title,
+        description,
+        donationImg,
+        approved_status: 'Pending',
+        created_at: new Date(),
+        id: _id,
+        uid: currentlyConnected,
+      })
+      .then(() => {
+        setTitle('');
+        setDescription('');
+        setDonationImg('');
+        setIsSubmitting(false);
+        Snackbar.show({
+          text: 'Request submitted for approval',
+          duration: Snackbar.LENGTH_SHORT,
+          backgroundColor: theme.colors.primary,
+          textColor: 'white',
+        });
+      })
+      .catch(() => {
+        setIsSubmitting(false);
+      });
+  };
   return (
     <ScrollView style={{flex: 1}}>
       <View style={{flex: 1, paddingBottom: 20}}>
@@ -179,14 +207,8 @@ const DonationSend = () => {
           <PrimaryButton
             label="Submit"
             variant="contained"
-            onAction={async () => {
-              let obj = {
-                title,
-                description,
-                donationImg,
-              };
-              console.log(obj);
-            }}
+            onAction={handleSubmit}
+            isLoading={isSubmitting}
           />
         </View>
       </View>

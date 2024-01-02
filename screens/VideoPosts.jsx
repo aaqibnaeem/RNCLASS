@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {View, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, FlatList, StyleSheet, Text} from 'react-native';
 import {AppHeader, VectorIcon, PostCard} from '../components';
 import {ActivityIndicator, useTheme} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
+import {useIsFocused} from '@react-navigation/native';
 const VideoPosts = ({navigation, counts}) => {
   const [postData, setPostData] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
+  const isFocused = useIsFocused();
 
   const theme = useTheme();
   const Styles = StyleSheet.create({
@@ -15,8 +17,12 @@ const VideoPosts = ({navigation, counts}) => {
   });
   useEffect(() => {
     getPosts();
-  }, []);
+    if (isFocused) {
+      getPosts();
+    }
+  }, [isFocused]);
   const getPosts = async () => {
+    setIsFetching(true);
     await firestore()
       .collection('posts')
       .get()
@@ -40,6 +46,9 @@ const VideoPosts = ({navigation, counts}) => {
           </TouchableOpacity>
         }
       />
+      {postData.length < 1 && !isFetching && (
+        <Text style={{textAlign: 'center'}}>No data found</Text>
+      )}
       {!isFetching ? (
         <FlatList
           data={postData}

@@ -56,7 +56,7 @@ function DrawerContent(props) {
   }, []);
 
   const handleLogout = async () => {
-    await GoogleSignin.revokeAccess();
+    await GoogleSignin.isSignedIn();
     await auth()
       .signOut()
       .then(() => {

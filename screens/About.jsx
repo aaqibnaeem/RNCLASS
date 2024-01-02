@@ -1,12 +1,16 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import {AppHeader} from '../components';
 
 const About = () => {
   return (
     <View style={{flex: 1}}>
       <AppHeader title="About us" />
-      <View style={{padding: 10}}>
+      <View style={{padding: 10, alignItems: 'center'}}>
+        <Image
+          source={require('../assets/images/logo.png')}
+          style={{height: 120, resizeMode: 'contain', marginBottom: 50}}
+        />
         <Text style={{fontSize: 18, lineHeight: 30}}>
           Saylani Mass IT Training Centre is dedicated to providing high-quality
           IT education and training to individuals seeking to enhance their

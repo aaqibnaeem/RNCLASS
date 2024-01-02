@@ -89,7 +89,6 @@ const SignupScreen = ({navigation}) => {
       setCreating({...creating, google: false});
       return userInfo;
     } catch (error) {
-      console.log(error);
       setCreating({...creating, google: false});
     }
   };

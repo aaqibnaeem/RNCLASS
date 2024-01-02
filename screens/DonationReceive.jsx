@@ -10,6 +10,7 @@ import {TextAreaInput, PrimaryButton, InputField, Select} from '../components';
 import {useTheme} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import Snackbar from 'react-native-snackbar';
 
 const DonationReceive = () => {
   const [currentlyConnected] = useState(auth()?.currentUser.uid);
@@ -68,7 +69,6 @@ const DonationReceive = () => {
         uid: currentlyConnected,
       })
       .then(() => {
-        console.log('Posted');
         setType('');
         setDescription('');
         setAmount('');
@@ -76,6 +76,12 @@ const DonationReceive = () => {
         setAddress('');
         setCnic('');
         setIsSubmitting(false);
+        Snackbar.show({
+          text: 'Request submitted successfully',
+          duration: Snackbar.LENGTH_SHORT,
+          backgroundColor: theme.colors.primary,
+          textColor: 'white',
+        });
       })
       .catch(() => {
         setIsSubmitting(false);
